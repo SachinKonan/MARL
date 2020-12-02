@@ -15,7 +15,7 @@ def test_single_env(trial_num):
     gamma = 0.99
     lr = 0.04
     betas = (0.9, 0.999)
-    epochs = 3000
+    epochs = 2000
     max_iterations = 100
     encoding_size = 20
 
@@ -59,10 +59,9 @@ def test_single_env(trial_num):
         policy.clearMemory()
         print('Iteration %s: %f' % (epoch, running_reward))
     
-    with open('predator/commnet_trial_%s.pkl' % trial_num, 'wb') as f:
+    with open('commnet_trial_%s.pkl' % trial_num, 'wb') as f:
         pickle.dump({'rewards': rewards, 'losses': losses, 'epochs': epoch_count}, f, pickle.HIGHEST_PROTOCOL)
     
 
 if __name__ == '__main__':
-    for trial in range(0, 5):
-        test_single_env(trial)
+    test_single_env('predator_prey')

@@ -91,10 +91,10 @@ def neighborhood(i, env, comm_range=0.1):
 def main():
     random_seed = 543
     torch.manual_seed(random_seed)
-    env = gym.make('Combat-v0')
+    env = gym.make('PredatorPrey5x5-v0')
     env.seed(random_seed)
 
-    epochs = 1000
+    epochs = 2000
     max_iterations = 200
     gamma = 0.95
     lr = 3e-2

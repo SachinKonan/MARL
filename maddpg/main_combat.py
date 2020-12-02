@@ -7,7 +7,7 @@ import ma_gym
 
 # do not render the scene
 
-env_name = 'PredatorPrey5x5-v0'
+env_name = 'Combat-v0'
 #random_seed = 543
 #torch.manual_seed(random_seed)
 env = gym.make(env_name)
@@ -24,8 +24,8 @@ n_states = env.observation_space[0].shape[0]
 capacity = 1000000
 batch_size = 1000
 
-n_episode = 2000
-max_steps = 100
+n_episode = 30000
+max_steps = 40
 episodes_before_train = 100
 
 win = None
@@ -65,4 +65,4 @@ for i_episode in range(n_episode):
     print('Episode: %d, reward = %f' % (i_episode, total_reward))
     reward_record.append(total_reward)
 
-np.save('rewards_predator', reward_record)
+np.save('rewards_combat', reward_record)
