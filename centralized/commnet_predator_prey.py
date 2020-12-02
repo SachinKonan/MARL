@@ -1,9 +1,6 @@
 import gym
-import ma_gym
 import torch
-from comnet_tester import CommNet
-import numpy as np
-import matplotlib.pyplot as plt
+from centralized.comnet_tester import CommNet
 import pickle
 
 def test_single_env(trial_num):
@@ -62,8 +59,8 @@ def test_single_env(trial_num):
         policy.clearMemory()
         print('Iteration %s: %f' % (epoch, running_reward))
     
-    with open('data/commnet_trial_%s.pkl' % trial_num, 'wb') as f:
-        pickle.dump({'rewards': rewards, 'losses': losses, 'epochs': epochs}, f, pickle.HIGHEST_PROTOCOL)
+    with open('predator/commnet_trial_%s.pkl' % trial_num, 'wb') as f:
+        pickle.dump({'rewards': rewards, 'losses': losses, 'epochs': epoch_count}, f, pickle.HIGHEST_PROTOCOL)
     
 
 if __name__ == '__main__':

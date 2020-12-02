@@ -17,6 +17,7 @@ class CommNet(nn.Module):
         self.C = nn.Linear(encoding_size, encoding_size)
         self.H_meta = nn.Linear(encoding_size, encoding_size)
         self.output_layer = nn.Linear(encoding_size, num_actions)
+        self.temp_value_layer = nn.Linear(encoding_size, encoding_size)
         self.value_layer = nn.Linear(encoding_size, 1)
 
         self.logprobs = []
@@ -48,7 +49,8 @@ class CommNet(nn.Module):
             c_i = (sum_for_all - h_i)*1/(n_agents-1)
 
         epsilon = 1e-5
-        state_value = self.value_layer(h_i)
+
+        state_value = self.value_layer(self.temp_value_layer(h_i))
         action_probs = F.softmax(self.output_layer(h_i), dim=-1)
         action_distribution = Categorical(action_probs)
 
@@ -84,6 +86,7 @@ class CommNet(nn.Module):
             action_loss = -logprob * advantage
             value_loss = F.smooth_l1_loss(value, reward)
             loss[i] = action_loss + value_loss + entropy
+            #loss[i] = action_loss + value_loss
             i+=1
 
         #average loss per agent across timesteps:
